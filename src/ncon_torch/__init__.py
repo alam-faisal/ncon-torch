@@ -1,2 +1,3 @@
 from .ncon import ncon
-__version__ = "0.2.1"
+from .backend import permute
+__version__ = "0.2.2"
