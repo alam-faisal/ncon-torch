@@ -4,14 +4,14 @@ with open("README.md", "r") as f:
     readme = f.read()
 
 setuptools.setup(
-    name="ncon",
-    version="2.0.0",
-    author="Markus Hauru",
-    author_email="markus@mhauru.org",
-    description="Tensor network contraction function for Python 3.",
+    name="ncon-torch",
+    version="0.2.0",
+    author="Faisal Alam",
+    author_email="mfalam2@illinois.edu",
+    description="Tensor network contraction function with GPU and autograd support via PyTorch.",
     long_description=readme,
     long_description_content_type="text/markdown",
-    url="https://github.com/mhauru/ncon",
+    url="https://github.com/alam-faisal/ncon-torch",
     packages=setuptools.find_packages("src"),
     package_dir={"": "src"},
     license="MIT",

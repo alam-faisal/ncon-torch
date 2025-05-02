@@ -2,7 +2,7 @@
 """
 from collections.abc import Iterable
 import numpy as np
-
+from .backend import con, trace, permute, expand_dims
 
 def ncon(L, v, order=None, forder=None, check_indices=True):
     """Contract a tensor network.
@@ -222,15 +222,9 @@ def connect_graph(L, v, order):
         A_d = L[d]
         c_axis = len(v[c])
         d_axis = len(v[d])
-        try:
-            L[c] = A_c.expand_dims(c_axis, direction=1)
-        except AttributeError:
-            L[c] = np.expand_dims(A_c, c_axis)
-        try:
-            L[d] = A_d.expand_dims(d_axis, direction=-1)
-        except AttributeError:
-            L[d] = np.expand_dims(A_d, d_axis)
-        # Find a new symbol for the trivial contraction.
+        L[c] = expand_dims(A_c, c_axis)
+        L[d] = expand_dims(A_d, d_axis)
+
         dim_num = 1
         while dim_num in order:
             dim_num += 1
@@ -238,7 +232,6 @@ def connect_graph(L, v, order):
         v[d].append(dim_num)
         order.append(dim_num)
     return None
-
 
 def get_tcon(v, index):
     """Gets the list indices in L of the tensors that have index as their
@@ -316,15 +309,8 @@ def renew_order(order, icon):
 
 
 def permute_final(A, v, forder):
-    """Returns the final tensor A with its legs permuted to the order given
-    in forder.
-    """
     perm = [v.index(i) for i in forder]
-    try:
-        permuted = A.transpose(tuple(perm))
-    except (AttributeError, TypeError):
-        permuted = np.transpose(A, tuple(perm))
-    return permuted
+    return permute(A, perm)  # delegate to backend
 
 
 def do_check_indices(L, v, order, forder):
@@ -406,20 +392,3 @@ def do_check_indices(L, v, order, forder):
 
     # All is well if we made it here.
     return True
-
-
-####################################################################
-# The following are simple wrappers around numpy/Tensor functions, #
-# but may be replaced with fancier stuff later.                    #
-####################################################################
-
-
-def con(A, B, inds):
-    if type(A) == type(B) == np.ndarray:
-        return np.tensordot(A, B, inds)
-    else:
-        return A.dot(B, inds)
-
-
-def trace(A, axis1=0, axis2=1):
-    return A.trace(axis1=axis1, axis2=axis2)

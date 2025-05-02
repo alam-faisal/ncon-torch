@@ -1,6 +1,6 @@
 import numpy as np
 import pytest
-from ncon import ncon
+from ncon_torch import ncon
 
 # The different calls deliberately use different variation of things like are the
 # arguments lists or tuples.
