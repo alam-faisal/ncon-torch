@@ -22,7 +22,9 @@ setuptools.setup(
         "Topic :: Scientific/Engineering",
     ],
     keywords=["tensor networks"],
-    install_requires=["numpy>=1.11.0"],
+    install_requires=[
+        "torch>=1.12",
+        "numpy>=1.20"],
     extras_require={"tests": ["pytest", "coverage", "pytest-cov"]},
-    python_requires=">=3.6",
+    python_requires=">=3.8",
 )
