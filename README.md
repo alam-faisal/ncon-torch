@@ -38,9 +38,9 @@ print("Gradient:", A.grad)
 ```
 
 To validate the efficiency of reverse-mode AD, we benchmarked the time to compute:
-	•	The cost function (a scalar-valued tensor contraction)
-	•	Gradients via reverse-mode AD (.backward())
-	•	Gradients via finite-difference approximation (scipy.optimize.approx_fprime)
+* The cost function (a scalar-valued tensor contraction)
+* Gradients via reverse-mode AD (.backward())
+* Gradients via finite-difference approximation (scipy.optimize.approx_fprime)
 
 Despite increasing parameter count, reverse-mode AD maintains near-constant overhead relative to the forward cost, unlike finite differences which scale poorly.
 
