@@ -5,7 +5,7 @@ with open("README.md", "r") as f:
 
 setuptools.setup(
     name="ncon-torch",
-    version="0.2.7",
+    version="0.2.8",
     author="Faisal Alam",
     author_email="mfalam2@illinois.edu",
     description="Tensor network contraction function with GPU and autograd support via PyTorch.",

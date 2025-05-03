@@ -14,9 +14,9 @@ def expand_dims(A, axis):
 
 def permute(A, perm):
     if is_tensor(A):
-        return A.permute(*perm)
+        return A.permute(*perm) if A.ndim > 0 else A
     elif isinstance(A, np.ndarray):
-        return np.transpose(A, perm)
+        return np.transpose(A, perm) if A.ndim > 0 else A
     else:
         raise TypeError("permute: unsupported tensor type")
 
